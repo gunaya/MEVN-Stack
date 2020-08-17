@@ -13,6 +13,8 @@ class App {
     public app: express.Application;
     public mongoUrl: string = 'mongodb://localhost/' + environment.getDBName();
 
+    // this.mongoUrl = 'mongodb+srv://gunaya:88888888@cluster0.wsbmk.mongodb.net/' + environment_1.default.getDBName();
+
     private test_routes: TestRoutes = new TestRoutes();
     private user_routes: UserRoutes = new UserRoutes();
     private common_routes: CommonRoutes = new CommonRoutes(); //last

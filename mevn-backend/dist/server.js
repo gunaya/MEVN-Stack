@@ -2,5 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = require("./config/app");
 const environment_1 = require("./environment");
-const PORT = process.env.PORT || 3000
-app_1.default.listen(process.env.PORT || 3000);
+const PORT = process.env.PORT || environment_1.default.getPort();
+app_1.default.listen(PORT, () => {
+    console.log('Express server listening on port ' + PORT);
+});
