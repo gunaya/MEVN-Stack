@@ -41,7 +41,6 @@ export class UserController {
 
     public list_user(req: Request, res: Response){
         this.user_service.listUser({}, (err: any, user_data: IUser) => {
-            console.log(user_data)
             if(err) {
                 mongoError(err, res);
             } else {

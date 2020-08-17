@@ -56,7 +56,10 @@ export default {
   ** Axios module configuration
   */
   axios: {
+    // baseURL: 'http://localhost:8080/api'
     // See https://github.com/nuxt-community/axios-module#options
+    //prod
+    baseURL: 'https://mevn-api.herokuapp.com/api'
   },
 
   /*

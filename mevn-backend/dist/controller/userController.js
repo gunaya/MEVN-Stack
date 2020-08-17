@@ -40,7 +40,6 @@ class UserController {
     }
     list_user(req, res) {
         this.user_service.listUser({}, (err, user_data) => {
-            console.log(user_data);
             if (err) {
                 service_1.mongoError(err, res);
             }

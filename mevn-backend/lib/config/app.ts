@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as mongoose from 'mongoose';
+import * as cors from 'cors';
 import environment from '../environment';
 // route import
 import { TestRoutes } from "../routes/test_routes";
@@ -18,6 +19,7 @@ class App {
 
     constructor() {
         this.app = express();
+        this.app.use(cors())
         this.config();
         this.mongoSetup();
 

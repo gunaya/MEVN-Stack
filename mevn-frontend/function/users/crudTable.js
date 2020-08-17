@@ -3,16 +3,26 @@ import { reactive, ref } from '@nuxtjs/composition-api';
 export function crudTable() {
     const table = reactive({
         headers: [
-            { sortable: false, text: "ID", value: "id" },
+            { sortable: false, text: "ID", value: "_id" },
             { sortable: false, text: "Name", value: "name" },
-            { sortable: false, text: "Salary", value: "salary", align: "right", },
-            { sortable: false, text: "Country", value: "country", align: "right", },
+            { sortable: false, text: "Email", value: "email" },
+            { sortable: false, text: "Gender", value: "gender" },
         ],
         items: [],
+        snackbar_status: false
     });
+    
+    const form = reactive({
+        name: { first_name: '', last_name: '' },
+        email: '',
+        gender: '',
+        username: '',
+        phone_number: '',
+    })
 
-    function loadItem(){
-        table.items.push({ name: "Dakota Rice", country: "Niger", city: "Oud-Tunrhout", salary: "$35,738", });
+    function manualItem(){
+        let r = Math.random().toString(36).substring(7);
+        table.items.push({ email: r+'@gmail.com', gender: "male", name: {first_name: r, last_name: 'Random'}});
     }
 
     function clearItem(){
@@ -20,13 +30,25 @@ export function crudTable() {
     }
 
     function refreshItem(){
-        this.$axios.get('http://127.0.0.1:8080/api/user/all')
+        this.$axios.get('/user/all')
         .then(( {data} ) => {
-            console.log(data)
+            table.items = data['data'];
+        })
+    }
+
+    function addItem(){
+        console.log(form)
+        this.$axios.post('/user', form)
+        .then(( {data} ) => {
+            if(data['status'] == 'SUCCESS'){
+                console.log(data)
+                table.snackbar_status = true;
+            }
         })
     }
 
     return {
-        table, loadItem, clearItem, refreshItem
+        table, form,
+        manualItem, clearItem, refreshItem, addItem
     };
 }
