@@ -1,17 +1,18 @@
 import { ModificationNote } from "../common/model";
 
 export interface IUser {
-    _id?: String;
+    _id?: string;
     name: {
-        first_name: String;
-        last_name: String;
+        first_name: string;
+        last_name: string;
     }
-    username: String;
-    password: String;
-    email: String;
-    phone_number: String;
-    gender: String;
+    username: string;
+    password: string;
+    email: string;
+    phone_number: string;
+    gender: string;
     is_admin?: Boolean;
     modification_note: ModificationNote[];
+    posts: [];
 
 }

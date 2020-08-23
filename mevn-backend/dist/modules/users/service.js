@@ -7,7 +7,7 @@ class UserService {
         _session.save(callback);
     }
     filterUser(query, callback) {
-        schema_1.default.findOne(query, callback);
+        schema_1.default.findOne(query, callback).populate("posts", "-modification_note -__v");
     }
     updateUser(user_params, callback) {
         const query = { _id: user_params._id };
@@ -19,6 +19,10 @@ class UserService {
     }
     listUser(query, callback) {
         schema_1.default.find(query, callback);
+    }
+    // post
+    updatePost(user_id, post_id, callback) {
+        schema_1.default.findByIdAndUpdate(user_id, { $push: { posts: post_id } }, callback);
     }
 }
 exports.default = UserService;

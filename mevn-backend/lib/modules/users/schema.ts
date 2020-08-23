@@ -19,7 +19,13 @@ const schema = new Schema({
         type: Boolean,
         default: false
     },
-    modification_note: [ModificationNote]
+    modification_note: [ModificationNote],
+    posts: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'post'
+        }
+    ]
 });
 
 export default mongoose.model('user', schema);

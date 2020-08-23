@@ -1,5 +1,12 @@
 {
-	"folders": [],
+	"folders": [
+		{
+			"path": "mevn-backend"
+		},
+		{
+			"path": "mevn-frontend"
+		}
+	],
 	"settings": {
 		// "editor.formatOnSave": true,
 	}

@@ -39,5 +39,8 @@ class Environment {
             return 'db_test_project_local';
         }
     }
+    getJWTSecret() {
+        return 'JWT_SECRET';
+    }
 }
 exports.default = new Environment(Environments.local_environment);

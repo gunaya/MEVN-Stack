@@ -9,7 +9,7 @@ export default class UserService {
     }
 
     public filterUser(query: any, callback: any){
-        users.findOne(query, callback);
+        users.findOne(query, callback).populate("posts", "-modification_note -__v");
     }
 
     public updateUser(user_params: IUser, callback: any){
@@ -24,6 +24,15 @@ export default class UserService {
 
     public listUser(query: any, callback: any){
         users.find(query, callback);
+    }
+
+    // post
+    public updatePost(user_id: String, post_id: String, callback: any){ //tambah post
+        users.findByIdAndUpdate(
+            user_id,
+            { $push: { posts: post_id } },
+            callback
+        )
     }
 
 }

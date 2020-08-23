@@ -40,6 +40,7 @@ export default {
   */
   plugins: [
     '~/plugins/vuetify',
+    '~/plugins/axios',
     { src: '~/plugins/chartist', mode: 'client' }
   ],
 
@@ -56,12 +57,15 @@ export default {
   ** Axios module configuration
   */
   axios: {
-    // baseURL: 'http://localhost:8080/api'
+    // baseURL: 'http://localhost:8080/api',
     // See https://github.com/nuxt-community/axios-module#options
     //prod
-    baseURL: 'https://mevn-api.herokuapp.com/api'
+    baseURL: 'https://mevn-api.herokuapp.com/api',
   },
 
+  router: {
+    middleware: 'authentication'
+  },
   /*
   ** Build configuration
   */

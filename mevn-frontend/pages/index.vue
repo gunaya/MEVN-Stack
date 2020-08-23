@@ -1,80 +1,37 @@
 <template>
-    <v-content>
-        <v-container fluid fill-height>
-            <v-layout align-center justify-center>
-                <v-flex xs12 sm8 md4>
-                    <material-card color="success" elevation="12" title="Sign In">
-                        <v-card-text>
-                            <v-form>
-                                <v-text-field
-                                    type="text"
-                                    v-model="username"
-                                    prepend-icon="person"
-                                    name="username"
-                                    label="Login"
-                                    :placeholder="defaultUserPassword"
-                                ></v-text-field>
-                                <v-text-field
-                                    type="password"
-                                    v-model="password"
-                                    prepend-icon="lock"
-                                    name="password"
-                                    label="Password"
-                                    :placeholder="defaultUserPassword"
-                                ></v-text-field>
-                            </v-form>
-                        </v-card-text>
-                        <v-card-actions>
-                            <v-layout justify-center align-center>
-                                <v-btn
-                                    color="success"
-                                    :disabled="isDisabled"
-                                    @click.prevent="authenticate"
-                                >Login</v-btn>
-                            </v-layout>
-                        </v-card-actions>
-                    </material-card>
-                </v-flex>
-            </v-layout>
-        </v-container>
-    </v-content>
+    <v-container fill-height fluid style="flex-wrap: wrap;">
+        <div>
+            <div v-if="$store.state.auth">
+                <p> {{ $store.state.auth }}
+                    You are authenticated. You can see the
+                    <NuxtLink to="/dashboard">dashboard</NuxtLink>!
+                </p>
+                <button @click="logout">Logout</button>
+            </div>
+            <p v-else>
+                Please
+                <NuxtLink to="/login">login</NuxtLink>.
+            </p>
+        </div>
+    </v-container>
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import materialCard from "~/components/material/AppCard";
+const Cookie = process.client ? require("js-cookie") : undefined;
+
+import { ref, reactive } from "@nuxtjs/composition-api";
 
 export default {
-    middleware: 'authentication',
-    components: {
-        materialCard,
-    },
-    data() {
-        return {
-            username: "admin",
-            password: "admin",
-            defaultUserPassword: "admin",
-        };
-    },
-    computed: {
-        isDisabled() {
-            return (
-                this.username !== this.defaultUserPassword ||
-                this.password !== this.defaultUserPassword
-            );
-        },
-    },
-    methods: {
-        ...mapActions({
-            setUsername: "user/setUsername",
-        }),
+    setup() {
 
-        async authenticate() {
-            if (!this.isDisabled) {
-                await this.setUsername(this.defaultUserPassword);
-                this.$router.push({ path: "dashboard" });
-            }
-        },
-    },
+        function logout() {
+            Cookie.remove('auth');
+            this.$store.commit("setAuth", null)
+        }
+
+        return {
+            logout
+        }
+    }
 };
 </script>
